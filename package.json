@@ -1,0 +1,19 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "TODO API example using NodeJS and MonogoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "todo"
+  ],
+  "author": "DWebSoft",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.0.4"
+  }
+}
