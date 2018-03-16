@@ -4,7 +4,7 @@
   "description": "TODO API example using NodeJS and MonogoDB",
   "main": "index.js",
   "scripts": {
-    "test": "mocha server/**/*.test.js",
+    "test": "mocha --timeout=4000 server/**/*.test.js",
     "test-watch": "nodemon --exec \"npm test\""
   },
   "keywords": [
