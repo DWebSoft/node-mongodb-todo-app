@@ -238,5 +238,49 @@ describe('POST /users', () => {
             .expect(400)
             .end(done);
     });
+});
 
+describe('POST /users/login', () => {
+    it('should login user and return auth token', (done) => {
+        var user = { email: users[1].email, password: users[1].password };
+        request(app)
+            .post('/users/login')
+            .send( user )
+            .expect(200)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toBeTruthy();
+            })
+            .end((err, res) => {
+                if ( err ) {
+                    return done(err);
+                }
+                User.findById(users[1]._id).then((user) => {
+                    //console.log(user);
+                    expect(user.tokens[0]).toMatchObject({
+                        access: "auth",
+                        token: res.headers['x-auth']
+                    });
+                    done();
+                }).catch((err) => done(err));
+            });
+    });
+    it('should reject invalid login', (done) => {
+        var user = { email: 'user12@test.com', password: 'useronepass11' };
+        request(app)
+            .post('/users/login')
+            .send(user)
+            .expect(400)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toBeFalsy();
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                User.findById(users[1]._id).then((user) => {
+                    expect(user.tokens.length).toBe(0);
+                    done();
+                }).catch((err) => done(err));
+            });
+    });
 });
