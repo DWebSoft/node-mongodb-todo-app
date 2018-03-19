@@ -6,8 +6,8 @@ mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
     options = {
         auth: {
-            user: 'durgesh',
-            password: 'durgesh7$$'
+            user: process.env.MONGODB_USER,
+            password: process.env.MONGODB_PWD
         }
     }
 }else{
